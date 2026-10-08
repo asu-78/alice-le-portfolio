@@ -1,7 +1,12 @@
-# Alice Le marketing portfolio
+const revealEls = document.querySelectorAll('.reveal');
 
-Responsive animated portfolio, ready for GitHub Pages. No build step or dependencies.
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
 
-Upload these files to a public GitHub repository. In Settings > Pages, select Deploy from a branch, main, / (root), then Save.
-
-Keep assets/ and Alice_LE_Portfolio.pdf beside index.html.
+revealEls.forEach((el) => revealObserver.observe(el));
